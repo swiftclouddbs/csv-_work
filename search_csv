@@ -1,0 +1,20 @@
+import pandas as pd
+
+df = pd.read_csv(".\Systems_Full_Inventory.csv")
+
+df['SYSTEM'].astype('|S')
+df['APPLICATION'].astype('|S')
+df['PRIMARY TECHNICAL CONTACT'].astype('|S')
+df['ADDITIONAL CONTACTS'].astype('|S')
+
+while True:
+
+    sys = input("Which system would you like POC info for? ")
+    result = df.loc[(df['SYSTEM'].str.contains(sys, case=False, na=False))]
+    final = result[['APPLICATION', 'PRIMARY TECHNICAL CONTACT', 'ADDITIONAL CONTACTS']]
+
+    if(len(final) == 0):
+        print("Not found!")
+
+    if sys == 'stop' : break
+    print(final.to_string(index=False))
